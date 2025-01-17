@@ -1,101 +1,70 @@
+"use client";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.js
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [screenWidth, setScreenWidth] = useState(0);
+  const products = [
+    { 
+      name: "Swiftie Swipe", 
+      description: "The #1 unoffical daily Swiftie challenge mobile game!",
+      icon: "/swiftie.png",
+      link: "https://apps.apple.com/us/app/swiftie-swipe/id6479224086"
+    },
+    {
+      name: "Dunk Rank",
+      description: "The premiere app for ranking you and your friends based off basketball 1v1 scores.",
+      icon: "/dunkrank.png",
+      link: "https://apps.apple.com/us/app/dunk-rank/id6448699695"
+    },
+    {
+      name: "Quote Cook",
+      description: "The daily competitive daily unofficial Breaking Bad game",
+      icon: "/quotecook.png",
+      link: "https://apps.apple.com/us/app/quote-cook/id6447148619"
+    }
+  ];
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenWidth(window.innerWidth);
+    };
+
+    window.addEventListener('resize', handleResize);
+    handleResize(); // Call once to set initial width
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return (
+    <main className="flex flex-col justify-center bg-gradient-to-b from-sky-600 to-sky-300 bg-fixed">
+      <div className="flex flex-col items-center justify-center min-h-screen">
+        <h1 className="font-extrabold text-white text-center" style={{ fontSize: screenWidth/6 }}>AndyTech</h1>
+        <h2 className="text-white text-center text-3xl font-bold">Maximum Performance. Maximum Effort.</h2>
+      </div>
+      <div className="w-full mt-32">
+        <h2 className="text-white text-center font-bold text-3xl">
+          Latest Products
+        </h2>
+        <div className="flex flex-row items-center justify-center flex-wrap">
+          {products.map((product) => (
+            <div className="flex flex-col items-start justify-center border-2 border-white rounded-xl p-3 max-w-52 min-w-52 bg-opacity-20 m-4 bg-gradient-to-t from-transparent to-sky-200" key={product.name}>
+              <a href={product.link} target="_blank">
+                <div className="border-2 border-white bg-white bg-opacity-40 rounded-xl mb-2">
+                  <Image src={product.icon} alt={product.name} width={75} height={75} className="rounded-xl p-1" />
+                </div>
+              </a>
+              <h3 className="text-white font-bold">{product.name}</h3>
+              <p className="text-white">{product.description}</p>
+            </div>
+          ))}
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+      </div>
+      <footer className="w-full mt-32 bottom-0">
+        <p className="text-white text-center">
+          Copyright © 2025 AndyTech, Inc. All rights reserved.
+        </p>
       </footer>
-    </div>
+    </main>
   );
 }
