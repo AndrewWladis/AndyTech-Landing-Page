@@ -2,7 +2,7 @@ import "./globals.css";
 
 export const metadata = {
   title: "AndyTech",
-  description: "",
+  description: "Maximum Performance. Maximum Effort.",
 };
 
 export default function RootLayout({ children }) {
