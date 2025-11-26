@@ -1,9 +1,11 @@
 "use client";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import Navbar from "@/components/Navbar";
 
 export default function Home() {
   const [screenWidth, setScreenWidth] = useState(0);
+  const [downloadCount, setDownloadCount] = useState(0);
   const products = [
     { 
       name: "Swiftie Swipe", 
@@ -36,39 +38,41 @@ export default function Home() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  useEffect(() => {
+    const targetCount = 20000;
+    const duration = 2000; // 2 seconds
+    const increment = targetCount / (duration / 16); // 60fps
+
+    const timer = setInterval(() => {
+      setDownloadCount(prevCount => {
+        if (prevCount >= targetCount) {
+          clearInterval(timer);
+          return targetCount;
+        }
+        return Math.min(prevCount + increment, targetCount);
+      });
+    }, 16);
+
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800">
-      {/* Navigation */}
-      <nav className="bg-white/10 backdrop-blur-md border-b border-white/20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center">
-              <h1 className="text-white font-bold text-xl">AndyTech</h1>
-            </div>
-            <div className="hidden md:block">
-              <div className="ml-10 flex items-baseline space-x-4">
-                <a href="#home" className="text-white hover:text-blue-300 px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a>
-                <a href="#products" className="text-white hover:text-blue-300 px-3 py-2 rounded-md text-sm font-medium transition-colors">Products</a>
-                <a href="#contact" className="text-white hover:text-blue-300 px-3 py-2 rounded-md text-sm font-medium transition-colors">Contact</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <Navbar />
 
       {/* Hero Section */}
       <section id="home" className="relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
           <div className="text-center">
-            <h1 className="font-extrabold text-white text-center mb-6" style={{ fontSize: Math.max(48, screenWidth/8) }}>
+            <h1 className="font-extrabold text-white text-center" style={{ fontSize: Math.max(48, screenWidth/8) }}>
               AndyTech
             </h1>
-            <h2 className="text-white text-center text-2xl md:text-4xl font-semibold mb-8 max-w-3xl mx-auto leading-relaxed">
-              Maximum Performance. Maximum Effort.
-            </h2>
-            <p className="text-blue-200 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
+            <p className="text-blue-200 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed mb-8">
               Creating innovative mobile applications that deliver exceptional user experiences and drive engagement.
             </p>
+            <div className="text-5xl font-mono text-center md:text-5xl font-bold mb-2 text-blue-100">
+                  {Math.floor(downloadCount).toLocaleString()}+ Downloads
+            </div>
           </div>
         </div>
       </section>
@@ -125,7 +129,7 @@ export default function Home() {
       </section>
 
       {/* About Section */}
-      <section className="py-24">
+      <section id="about" className="py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
@@ -163,26 +167,16 @@ export default function Home() {
               </p>
             </div>
             <div>
-              <h4 className="text-white font-semibold mb-4">Products</h4>
+              <h4 className="text-white font-semibold mb-4">Services</h4>
               <ul className="space-y-2">
-                {products.map((product) => (
-                  <li key={product.name}>
-                    <a 
-                      href={product.link} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="text-blue-200 hover:text-white transition-colors"
-                    >
-                      {product.name}
-                    </a>
-                  </li>
-                ))}
+                <li><a href="/mobile-products" className="text-blue-200 hover:text-white transition-colors">Mobile Development</a></li>
+                <li><a href="/freelancing" className="text-blue-200 hover:text-white transition-colors">Software Freelancing</a></li>
               </ul>
             </div>
             <div>
               <h4 className="text-white font-semibold mb-4">Contact</h4>
               <p className="text-blue-200">
-                Get in touch with us for collaboration opportunities and support at andywladis19@gmail.com
+                Get in touch with us for collaboration opportunities and support at awladis@andytech.it.com
               </p>
             </div>
           </div>
