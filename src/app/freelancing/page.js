@@ -1,204 +1,244 @@
 "use client";
+import Image from "next/image";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 
+const services = [
+  {
+    label: "Web apps",
+    title: "Dashboards, portals, and product sites that feel finished.",
+    detail: "Next.js builds with crisp flows, useful states, and copy that does not sound like it came from a template.",
+    stack: ["React", "Next.js", "APIs", "Auth"],
+    color: "#ff3a7e",
+  },
+  {
+    label: "Mobile MVPs",
+    title: "Small-screen ideas turned into something people can actually tap.",
+    detail: "Expo and React Native builds for prototypes, pilots, and focused first releases.",
+    stack: ["React Native", "Expo", "iOS", "Android"],
+    color: "#00e6ff",
+  },
+  {
+    label: "Backends",
+    title: "APIs, data models, and boring parts that quietly hold up.",
+    detail: "Server work that favors clear contracts, sane data, and fewer mysteries when traffic shows up.",
+    stack: ["Node.js", "Python", "Firebase", "SQL"],
+    color: "#d7ff4f",
+  },
+  {
+    label: "Rescues",
+    title: "Messy builds cleaned up without turning your roadmap inside out.",
+    detail: "Performance passes, UI polish, bug hunts, release prep, and technical debt that needs a direct hit.",
+    stack: ["Audits", "Refactors", "Launches", "QA"],
+    color: "#ffe600",
+  },
+];
+
+const proofIcons = [
+  { src: "/pillowbook.png", alt: "Pillowbook app icon" },
+  { src: "/swiftie.png", alt: "Swiftie Swipe app icon" },
+  { src: "/dunkrank.png", alt: "Dunk Rank app icon" },
+  { src: "/bondsai.png", alt: "BondsAI app icon" },
+  { src: "/token.png", alt: "Token app icon" },
+];
+
+const reasons = [
+  "You need the first usable version, not six weeks of theater.",
+  "Your current product works, but it looks and feels too timid.",
+  "You have a workflow people do by hand and want software to take the weight.",
+  "You want a builder who can move from interface to API without a handoff circus.",
+];
+
+const process = [
+  {
+    step: "Scope the actual job",
+    body: "We shrink the idea down to the behavior that matters most and decide what deserves to ship first.",
+  },
+  {
+    step: "Build where users feel it",
+    body: "The interface, data, and edge cases move together so the product gets real quickly.",
+  },
+  {
+    step: "Polish before handoff",
+    body: "States, mobile layout, copy, release details, and the little rough edges get attention before launch.",
+  },
+];
+
 export default function Freelancing() {
-  const services = [
-    {
-      title: "Web Development",
-      description: "Full-stack web applications using modern technologies like React, Next.js, Node.js, and more.",
-      icon: "🌐",
-      technologies: ["React", "Next.js", "Node.js", "Express", "MongoDB"]
-    },
-    {
-      title: "Mobile App Development",
-      description: "Native and cross-platform mobile applications for iOS and Android.",
-      icon: "📱",
-      technologies: ["React Native", "Expo"]
-    },
-    {
-      title: "Backend Development",
-      description: "Scalable server-side solutions with robust APIs and database design.",
-      icon: "⚙️",
-      technologies: ["Node.js", "Python"]
-    },
-    {
-      title: "Database Design",
-      description: "Optimized database architecture and data modeling for performance and scalability.",
-      icon: "🗄️",
-      technologies: ["MongoDB", "MySQL", "Firebase"]
-    }
-  ];
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800">
+    <div className="site-shell">
       <Navbar />
 
-      {/* Hero Section */}
-      <section className="relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-          <div className="text-center">
-            <h1 className="text-white text-4xl md:text-6xl font-bold mb-6">
-              Software Freelancing & Consulting
-            </h1>
-            <p className="text-blue-200 text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed mb-8">
-              Professional software development services tailored to your business needs
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a 
-                href="mailto:awladis@andytech.it.com" 
-                className="inline-flex items-center px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors duration-200"
-              >
-                Contact Us Today
-                <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-              </a>
+      <main>
+        <section className="relative overflow-hidden px-4 py-12 sm:px-6 lg:px-8">
+          <div className="stripe-fill absolute left-0 top-28 h-28 w-full border-y border-white/20 opacity-60" />
+
+          <div className="relative mx-auto grid max-w-7xl gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+            <div className="reveal-in">
+              <div className="mb-6 flex gap-2 lg:hidden" aria-label="Shipped AndyTech apps">
+                {proofIcons.map((icon) => (
+                  <Image
+                    key={icon.src}
+                    src={icon.src}
+                    alt={icon.alt}
+                    width={56}
+                    height={56}
+                    className="h-12 w-12 rounded-lg border border-white/20 object-cover shadow-[4px_4px_0_rgba(0,0,0,0.55)]"
+                    priority
+                  />
+                ))}
+              </div>
+              <h1 className="brand-shadow text-6xl font-black leading-none text-white md:text-7xl">
+                Ship the thing. Skip the fog.
+              </h1>
+              <p className="mt-7 max-w-2xl text-lg font-semibold leading-8 text-white/72">
+                AndyTech builds web and mobile software for people who need momentum: a sharper interface, a working MVP, a cleaner backend, or a product that finally feels ready to show.
+              </p>
+              <div className="mt-9 flex flex-col gap-4 sm:flex-row">
+                <a href="mailto:awladis@andytech.it.com" className="slab-button px-6 py-3">
+                  Email the studio
+                  <svg aria-hidden="true" className="h-5 w-5" viewBox="0 0 24 24" fill="none">
+                    <path d="M4 5h16v14H4zM4 7l8 6 8-6" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </a>
+                <Link href="/mobile-products" className="slab-button slab-button-dark px-6 py-3">
+                  See shipped apps
+                  <svg aria-hidden="true" className="h-5 w-5" viewBox="0 0 24 24" fill="none">
+                    <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </Link>
+              </div>
+            </div>
+
+            <div className="reveal-in stagger-2 neo-card relative hidden overflow-hidden p-6 lg:block">
+              <div className="grid gap-4">
+                <div className="flex items-center justify-between border-b border-white/15 pb-5">
+                  <p className="text-sm font-black uppercase text-white/58">Proof board</p>
+                  <p className="text-sm font-black text-[#d7ff4f]">20,000+ downloads</p>
+                </div>
+
+                <div className="grid grid-cols-5 gap-3">
+                  {proofIcons.map((icon, index) => (
+                    <div
+                      key={icon.src}
+                      className={`scan-panel relative aspect-square overflow-hidden border border-white/20 bg-white/8 p-1 float-${index % 2 === 0 ? "one" : "two"}`}
+                    >
+                      <Image
+                        src={icon.src}
+                        alt={icon.alt}
+                        width={96}
+                        height={96}
+                        className="h-full w-full rounded-md object-cover"
+                        priority={index < 3}
+                      />
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mt-5 grid gap-3">
+                  {["Prototype", "Polish", "Launch"].map((item, index) => (
+                    <div key={item} className="flex items-center justify-between border border-white/15 bg-black/35 px-4 py-3">
+                      <span className="font-black text-white">{item}</span>
+                      <span className="font-mono text-sm font-black text-white/44">0{index + 1}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Services Section */}
-      <section className="py-24 bg-white/5">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-white text-4xl md:text-5xl font-bold mb-4">
-              Our Services
-            </h2>
-            <p className="text-blue-200 text-xl max-w-3xl mx-auto">
-              Comprehensive software development solutions for businesses of all sizes
-            </p>
+        <div className="ticker">
+          <div className="ticker-track">
+            {[...reasons, ...reasons].map((reason, index) => (
+              <span key={`${reason}-${index}`}>{reason}</span>
+            ))}
           </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {services.map((service) => (
-              <div key={service.title} className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-8 hover:bg-white/15 transition-all duration-300">
-                <div className="flex items-center mb-6">
-                  <div className="text-4xl mr-4">{service.icon}</div>
-                  <h3 className="text-white font-bold text-2xl">{service.title}</h3>
-                </div>
-                <p className="text-blue-200 text-lg leading-relaxed mb-6">
-                  {service.description}
-                </p>
-                <div>
-                  <h4 className="text-white font-semibold mb-3">Technologies:</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {service.technologies.map((tech) => (
-                      <span key={tech} className="bg-blue-600/20 text-blue-200 px-3 py-1 rounded-full text-sm">
-                        {tech}
+        </div>
+
+        <section className="px-4 py-20 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl">
+            <div className="mb-12 max-w-4xl">
+              <p className="mb-3 text-sm font-black uppercase text-[#ff3a7e]">What to bring</p>
+              <h2 className="text-5xl font-black leading-none text-white md:text-7xl">
+                A half-clear idea is enough. The work makes it sharper.
+              </h2>
+            </div>
+
+            <div className="grid gap-6 md:grid-cols-2">
+              {services.map((service, index) => (
+                <div
+                  key={service.label}
+                  className={`neo-card tilt-card reveal-in stagger-${(index % 4) + 1} overflow-hidden p-6`}
+                >
+                  <div className="mb-7 flex items-center justify-between gap-4">
+                    <span className="rounded-md px-3 py-1 text-xs font-black uppercase text-black" style={{ background: service.color }}>
+                      {service.label}
+                    </span>
+                    <span className="font-mono text-sm font-black text-white/38">0{index + 1}</span>
+                  </div>
+                  <h3 className="text-3xl font-black leading-tight text-white">{service.title}</h3>
+                  <p className="mt-4 text-base font-semibold leading-7 text-white/68">{service.detail}</p>
+                  <div className="mt-7 flex flex-wrap gap-2">
+                    {service.stack.map((item) => (
+                      <span key={item} className="rounded-md border border-white/18 bg-white/8 px-3 py-2 text-xs font-black uppercase text-white/72">
+                        {item}
                       </span>
                     ))}
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
-      
+        </section>
 
-      {/* Why Choose Us Section */}
-      <section className="py-24 bg-white/5">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-white text-4xl md:text-5xl font-bold mb-6">
-                Why Choose AndyTech?
+        <section className="px-4 py-20 sm:px-6 lg:px-8">
+          <div className="mx-auto grid max-w-7xl gap-6 lg:grid-cols-[0.9fr_1.1fr]">
+            <div className="neo-card bg-[#00e6ff] p-8 text-black">
+              <p className="text-sm font-black uppercase">How projects move</p>
+              <h2 className="mt-5 text-5xl font-black leading-none md:text-7xl">
+                Clear scope. Fast loops. No mystery status.
               </h2>
-              <div className="space-y-6">
-                <div className="flex items-start">
-                  <div className="bg-green-500 rounded-full p-2 mr-4 mt-1">
-                    <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="text-white font-semibold text-lg mb-2">Proven Track Record</h3>
-                    <p className="text-blue-200">Successfully delivered multiple mobile apps with thousands of downloads</p>
-                  </div>
-                </div>
-                <div className="flex items-start">
-                  <div className="bg-green-500 rounded-full p-2 mr-4 mt-1">
-                    <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="text-white font-semibold text-lg mb-2">Modern Technologies</h3>
-                    <p className="text-blue-200">Using the latest frameworks and best practices for optimal performance</p>
-                  </div>
-                </div>
-                <div className="flex items-start">
-                  <div className="bg-green-500 rounded-full p-2 mr-4 mt-1">
-                    <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="text-white font-semibold text-lg mb-2">Flexible Engagement</h3>
-                    <p className="text-blue-200">Project-based, hourly, or ongoing support - whatever works for your business</p>
-                  </div>
-                </div>
-                <div className="flex items-start">
-                  <div className="bg-green-500 rounded-full p-2 mr-4 mt-1">
-                    <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="text-white font-semibold text-lg mb-2">Transparent Communication</h3>
-                    <p className="text-blue-200">Regular updates, clear timelines, and open communication throughout the project</p>
-                  </div>
-                </div>
-              </div>
             </div>
-            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20">
-              <h3 className="text-white text-2xl font-bold mb-6">Ready to Get Started?</h3>
-              <p className="text-blue-200 leading-relaxed mb-6">
-                Let's discuss your project requirements and create a solution that drives your business forward.
-              </p>
-              <div className="space-y-4">
-                <a 
-                  href="mailto:awladis@andytech.it.com" 
-                  className="block w-full text-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors duration-200"
-                >
-                  Email for a Consultation
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Footer */}
-      <footer className="bg-white/5 border-t border-white/20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div>
-              <h3 className="text-white font-bold text-xl mb-4">AndyTech</h3>
-              <p className="text-blue-200">
-                Professional software development services for your business needs.
-              </p>
-            </div>
-            <div>
-              <h4 className="text-white font-semibold mb-4">Services</h4>
-              <ul className="space-y-2">
-                <li><Link href="/mobile-products" className="text-blue-200 hover:text-white transition-colors">Mobile Development</Link></li>
-                <li><Link href="/freelancing" className="text-blue-200 hover:text-white transition-colors">Software Freelancing</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-white font-semibold mb-4">Contact</h4>
-              <p className="text-blue-200">
-                Get in touch with us for collaboration opportunities and support at awladis@andytech.it.com
-              </p>
+            <div className="grid gap-6">
+              {process.map((item, index) => (
+                <div key={item.step} className={`neo-card reveal-in stagger-${index + 1} grid gap-5 p-6 md:grid-cols-[7rem_1fr]`}>
+                  <p className="font-mono text-4xl font-black text-[#ffe600]">0{index + 1}</p>
+                  <div>
+                    <h3 className="text-2xl font-black text-white">{item.step}</h3>
+                    <p className="mt-3 text-base font-semibold leading-7 text-white/68">{item.body}</p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
-          <div className="border-t border-white/20 mt-8 pt-8">
-            <p className="text-blue-200 text-center">
-              © 2025 AndyTech, Inc. All rights reserved.
-            </p>
+        </section>
+
+        <section className="px-4 py-20 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl border-y border-white/20 py-12">
+            <div className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
+              <div>
+                <p className="mb-4 text-sm font-black uppercase text-[#d7ff4f]">Ready when the idea is</p>
+                <h2 className="max-w-3xl text-5xl font-black leading-none text-white md:text-7xl">
+                  Send the messy version. That is usually the honest one.
+                </h2>
+              </div>
+              <a href="mailto:awladis@andytech.it.com" className="slab-button px-6 py-3">
+                awladis@andytech.it.com
+                <svg aria-hidden="true" className="h-5 w-5" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 5h16v14H4zM4 7l8 6 8-6" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </a>
+            </div>
           </div>
+        </section>
+      </main>
+
+      <footer className="border-t border-white/20 px-4 py-10 sm:px-6 lg:px-8">
+        <div className="mx-auto flex max-w-7xl flex-col gap-6 text-sm font-bold text-white/58 md:flex-row md:items-center md:justify-between">
+          <p>Freelance web and mobile builds by AndyTech.</p>
+          <p>&copy; 2026 AndyTech, Inc.</p>
         </div>
       </footer>
     </div>

@@ -3,188 +3,344 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 
+const productProof = [
+  {
+    name: "Pillowbook",
+    kicker: "Dream decoder",
+    icon: "/pillowbook.png",
+    color: "#ff8f3a",
+  },
+  {
+    name: "Swiftie Swipe",
+    kicker: "Daily Swiftie trivia game",
+    icon: "/swiftie.png",
+    color: "#ff3a7e",
+  },
+  {
+    name: "Dunk Rank",
+    kicker: "Sports ranking based on pickup games",
+    icon: "/dunkrank.png",
+    color: "#d7ff4f",
+  },
+  {
+    name: "BondsAI",
+    kicker: "Track and learn bonds",
+    icon: "/bondsai.png",
+    color: "#00e6ff",
+  },
+  {
+    name: "Token",
+    kicker: "Learn money",
+    icon: "/token.png",
+    color: "#ffe600",
+  },
+];
+
+const clientWork = [
+  {
+    name: "Careers in Code",
+    url: "https://careersincode.org/",
+    description: "A public-facing site for a Central NY coding bootcamp, built to move students, partners, mentors, and employers toward the right next step.",
+  },
+  {
+    name: "Alpha Epsilon Pi · ASU",
+    url: "https://asuaepi.netlify.app/",
+    description: "A fast chapter presence for ASU AEPi with an about story, campus identity, and a lightweight merch showcase.",
+  },
+];
+
+const services = [
+  {
+    title: "Websites that sell the next step",
+    body: "Landing pages, nonprofit sites, chapter sites, portfolios, and product pages with sharp copy, real hierarchy, and mobile polish.",
+  },
+  {
+    title: "Apps and MVPs that feel usable fast",
+    body: "React Native, Expo, and web app builds for focused ideas that need to become something people can tap, test, and share.",
+  },
+  {
+    title: "UI rebuilds with a pulse",
+    body: "Turn plain, AI-looking screens into bold interfaces with motion, better states, cleaner flows, and language that sounds human.",
+  },
+  {
+    title: "Launch cleanup and rescue work",
+    body: "Fix the rough edges before a launch: layout bugs, responsiveness, copy, performance, release prep, and handoff details.",
+  },
+];
+
 export default function Home() {
-  const [screenWidth, setScreenWidth] = useState(0);
   const [downloadCount, setDownloadCount] = useState(0);
-  const products = [
-    { 
-      name: "Swiftie Swipe", 
-      description: "The #1 unofficial daily Swiftie challenge mobile game!",
-      icon: "/swiftie.png",
-      link: "https://apps.apple.com/us/app/swiftie-swipe/id6479224086"
-    },
-    {
-      name: "Dunk Rank",
-      description: "The premiere app for ranking you and your friends based off basketball 1v1 scores.",
-      icon: "/dunkrank.png",
-      link: "https://apps.apple.com/us/app/dunk-rank/id6448699695"
-    },
-    {
-      name: "Quote Cook",
-      description: "The daily competitive unofficial Breaking Bad game",
-      icon: "/quotecook.png",
-      link: "https://apps.apple.com/us/app/quote-cook/id6447148619"
-    }
-  ];
-
-  useEffect(() => {
-    const handleResize = () => {
-      setScreenWidth(window.innerWidth);
-    };
-
-    window.addEventListener('resize', handleResize);
-    handleResize(); // Call once to set initial width
-
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   useEffect(() => {
     const targetCount = 20000;
-    const duration = 2000; // 2 seconds
-    const increment = targetCount / (duration / 16); // 60fps
+    const duration = 1700;
+    let frameId;
+    let startTime;
 
-    const timer = setInterval(() => {
-      setDownloadCount(prevCount => {
-        if (prevCount >= targetCount) {
-          clearInterval(timer);
-          return targetCount;
-        }
-        return Math.min(prevCount + increment, targetCount);
-      });
-    }, 16);
+    const tick = (time) => {
+      if (!startTime) startTime = time;
+      const progress = Math.min((time - startTime) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setDownloadCount(Math.round(targetCount * eased));
 
-    return () => clearInterval(timer);
+      if (progress < 1) {
+        frameId = requestAnimationFrame(tick);
+      }
+    };
+
+    frameId = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frameId);
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800">
+    <div className="site-shell">
       <Navbar />
 
-      {/* Hero Section */}
-      <section id="home" className="relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-          <div className="text-center">
-            <h1 className="font-extrabold text-white text-center" style={{ fontSize: Math.max(48, screenWidth/8) }}>
-              AndyTech
-            </h1>
-            <p className="text-blue-200 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed mb-8">
-              Creating innovative mobile applications that deliver exceptional user experiences and drive engagement.
-            </p>
-            <div className="text-5xl font-mono text-center md:text-5xl font-bold mb-2 text-blue-100">
-                  {Math.floor(downloadCount).toLocaleString()}+ Downloads
-            </div>
-          </div>
-        </div>
-      </section>
+      <main>
+        <section id="home" className="relative overflow-hidden px-4 pb-12 pt-10 sm:px-6 lg:min-h-[640px] lg:px-8">
+          <div className="stripe-fill absolute bottom-8 left-0 h-28 w-full border-y border-white/20 opacity-45" />
 
-      {/* Products Section */}
-      <section id="products" className="py-24 bg-white/5">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-white text-4xl md:text-5xl font-bold mb-4">
-              Our Products
-            </h2>
-            <p className="text-blue-200 text-xl max-w-3xl mx-auto">
-              Discover our portfolio of innovative mobile applications designed to enhance your digital experience.
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {products.map((product) => (
-              <div 
-                key={product.name}
-                className="group bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 hover:bg-white/15 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/20"
-              >
-                <a href={product.link} target="_blank" rel="noopener noreferrer" className="block">
-                  <div className="flex flex-col items-center text-center">
-                    <div className="bg-white/20 rounded-2xl p-4 mb-6 group-hover:scale-105 transition-transform duration-300">
-                      <Image 
-                        src={product.icon} 
-                        alt={product.name} 
-                        width={80} 
-                        height={80} 
-                        className="rounded-xl" 
-                      />
-                    </div>
-                    <h3 className="text-white font-bold text-xl mb-3 group-hover:text-blue-300 transition-colors">
-                      {product.name}
-                    </h3>
-                    <p className="text-blue-200 leading-relaxed">
-                      {product.description}
-                    </p>
-                    <div className="mt-6">
-                      <span className="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition-colors duration-200">
-                        View on App Store
-                        <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                        </svg>
-                      </span>
-                    </div>
-                  </div>
+          <div className="relative mx-auto grid max-w-7xl items-start gap-12 lg:grid-cols-[1.02fr_0.98fr]">
+            <div className="reveal-in relative z-10 max-w-4xl">
+              <div className="mb-6 flex gap-2 lg:hidden" aria-label="Selected work icons">
+                {productProof.map((product) => (
+                  <Image
+                    key={product.name}
+                    src={product.icon}
+                    alt={`${product.name} app icon`}
+                    width={56}
+                    height={56}
+                    className="h-12 w-12 rounded-lg border border-white/20 object-cover shadow-[4px_4px_0_rgba(0,0,0,0.55)]"
+                    priority
+                  />
+                ))}
+              </div>
+
+              <h1 className="brand-shadow text-6xl font-black leading-none text-white md:text-7xl lg:text-8xl">
+Sites and apps that deliver              
+</h1>
+
+              <p className="mt-6 max-w-2xl text-lg font-semibold leading-8 text-white/78 md:text-xl">
+                I’m Andy Wladis. I build bold websites, mobile MVPs, and software interfaces for clients that need a serious product in front of users.
+              </p>
+
+              <div className="mt-7 flex flex-col gap-4 sm:flex-row">
+                <a href="#work" className="slab-button slab-button-dark px-6 py-3">
+                  See work
+                  <svg aria-hidden="true" className="h-5 w-5" viewBox="0 0 24 24" fill="none">
+                    <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </a>
+                <a href="#contact" className="slab-button px-6 py-3">
+                  Start a project
+                  <svg aria-hidden="true" className="h-5 w-5" viewBox="0 0 24 24" fill="none">
+                    <path d="M4 5h16v14H4zM4 7l8 6 8-6" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
                 </a>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* About Section */}
-      <section id="about" className="py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-white text-4xl md:text-5xl font-bold mb-6">
-                About AndyTech
-              </h2>
-              <p className="text-blue-200 text-lg leading-relaxed mb-6">
-                We are passionate about creating mobile applications that not only meet user needs but exceed expectations. 
-                Our focus on performance, user experience, and innovative design sets us apart in the competitive app market.
-              </p>
-              <p className="text-blue-200 text-lg leading-relaxed">
-                Each product is crafted with attention to detail, ensuring maximum engagement and user satisfaction. 
-                We believe in the power of technology to bring people together and create meaningful experiences.
-              </p>
+              <div className="mt-9 grid max-w-xl grid-cols-1 border border-white/20 bg-black/50">
+                <div className="border-r border-white/20 p-4">
+                  <p className="text-2xl font-black text-white sm:text-3xl md:text-4xl">{downloadCount.toLocaleString()}+</p>
+                  <p className="mt-1 text-[0.62rem] font-black uppercase text-white/58 sm:text-xs">app downloads</p>
+                </div>
+              </div>
             </div>
-            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20">
-              <h3 className="text-white text-2xl font-bold mb-4">Our Mission</h3>
-              <p className="text-blue-200 leading-relaxed">
-                To develop mobile applications that combine cutting-edge technology with intuitive design, 
-                delivering exceptional user experiences that drive engagement and create lasting value.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Footer */}
-      <footer id="contact" className="bg-white/5 border-t border-white/20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div>
-              <h3 className="text-white font-bold text-xl mb-4">AndyTech</h3>
-              <p className="text-blue-200">
-                Creating innovative mobile experiences that users love.
-              </p>
-            </div>
-            <div>
-              <h4 className="text-white font-semibold mb-4">Services</h4>
-              <ul className="space-y-2">
-                <li><a href="/mobile-products" className="text-blue-200 hover:text-white transition-colors">Mobile Development</a></li>
-                <li><a href="/freelancing" className="text-blue-200 hover:text-white transition-colors">Software Freelancing</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-white font-semibold mb-4">Contact</h4>
-              <p className="text-blue-200">
-                Get in touch with us for collaboration opportunities and support at awladis@andytech.it.com
-              </p>
+            <div className="reveal-in stagger-2 relative hidden lg:block lg:min-h-[540px]" aria-label="Freelance proof icons">
+              <div className="spin-slow absolute left-1/2 top-1/2 h-[29rem] w-[29rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-white/30" />
+              <div className="absolute left-1/2 top-1/2 grid -translate-x-1/2 -translate-y-1/2 grid-cols-3 gap-5">
+                {productProof.map((product, index) => (
+                  <div
+                    key={product.name}
+                    className={`neo-card scan-panel grid h-28 w-28 place-items-center p-3 float-${index % 2 === 0 ? "one" : "two"} ${index === 4 ? "col-start-2" : ""}`}
+                    style={{ boxShadow: `8px 8px 0 ${product.color}` }}
+                  >
+                    <Image
+                      src={product.icon}
+                      alt={`${product.name} app icon`}
+                      width={96}
+                      height={96}
+                      className="h-full w-full rounded-md object-cover"
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
-          <div className="border-t border-white/20 mt-8 pt-8">
-            <p className="text-blue-200 text-center">
-              © 2025 AndyTech, Inc. All rights reserved.
-            </p>
+        </section>
+
+
+        <section id="work" className="px-4 py-20 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl">
+            <div className="mb-12 flex flex-col justify-between gap-6 md:flex-row md:items-end">
+              <div>
+                <h2 className="max-w-3xl text-5xl font-black leading-none text-white md:text-7xl">
+                  Previous freelance projects + <br />my mobile product lineup
+                </h2>
+              </div>
+            </div>
+
+            <div className="grid gap-6 lg:grid-cols-2">
+              {clientWork.map((project, index) => (
+                <a
+                  key={project.name}
+                  href={project.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`neo-card tilt-card reveal-in stagger-${index + 1} flex min-h-[260px] flex-col overflow-hidden p-5`}
+                >
+                  <h3 className="text-3xl font-black leading-none text-white md:text-4xl">{project.name}</h3>
+                  <p className="mt-4 flex-1 text-sm font-semibold leading-6 text-white/68">{project.description}</p>
+                  <span className="mt-6 inline-flex items-center gap-2 text-sm font-black uppercase text-white">
+                    Visit site
+                    <svg aria-hidden="true" className="h-4 w-4" viewBox="0 0 24 24" fill="none">
+                      <path d="M7 17L17 7M9 7h8v8" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </span>
+                </a>
+              ))}
+            </div>
+
+            <div className="mt-6 grid gap-4 md:grid-cols-5">
+              {productProof.map((product, index) => (
+                <div key={product.name} className={`neo-card reveal-in stagger-${(index % 4) + 1} p-4`}>
+                  <Image
+                    src={product.icon}
+                    alt={`${product.name} app icon`}
+                    width={72}
+                    height={72}
+                    className="h-16 w-16 rounded-lg object-cover shadow-[5px_5px_0_rgba(0,0,0,0.55)]"
+                  />
+                  <h3 className="mt-5 text-lg font-black text-white">{product.name}</h3>
+                  <p className="mt-2 text-xs font-black uppercase text-white/48">{product.kicker}</p>
+                </div>
+              ))}
+            </div>
           </div>
+        </section>
+
+        <section id="contact" className="px-4 py-20 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl border-y border-white/20 py-12">
+            <div className="grid gap-10 lg:grid-cols-[0.88fr_1.12fr] lg:items-start">
+              <div className="max-w-3xl">
+                <h2 className="text-5xl font-black leading-none text-white md:text-7xl">
+                  Request a meeting.
+                </h2>
+                <p className="mt-6 text-lg font-semibold leading-8 text-white/70">
+                  Send the rough idea, timeline, and what kind of help you need. I’ll follow up so we can find a good time to talk through it.
+                </p>
+              </div>
+
+              <div className="grid gap-5">
+                <form
+                  action="https://formspree.io/f/xqeoodpv"
+                  method="POST"
+                  className="neo-card no-shine grid gap-5 p-5 sm:p-6"
+                >
+                  <input type="hidden" name="_subject" value="New AndyTech meeting request" />
+                  <input type="text" name="_gotcha" tabIndex="-1" autoComplete="off" className="hidden" />
+
+                  <div className="grid gap-5 sm:grid-cols-2">
+                    <label className="grid gap-2 text-sm font-black uppercase text-white/64">
+                      Name
+                      <input
+                        type="text"
+                        name="name"
+                        required
+                        autoComplete="name"
+                        className="min-h-12 rounded-md border border-white/20 bg-black/55 px-4 py-3 text-base font-bold normal-case text-white outline-none transition-colors placeholder:text-white/28 focus:border-[#00e6ff]"
+                        placeholder="Your name"
+                      />
+                    </label>
+
+                    <label className="grid gap-2 text-sm font-black uppercase text-white/64">
+                      Email
+                      <input
+                        type="email"
+                        name="email"
+                        required
+                        autoComplete="email"
+                        className="min-h-12 rounded-md border border-white/20 bg-black/55 px-4 py-3 text-base font-bold normal-case text-white outline-none transition-colors placeholder:text-white/28 focus:border-[#00e6ff]"
+                        placeholder="you@example.com"
+                      />
+                    </label>
+                  </div>
+
+                  <div className="grid gap-5 sm:grid-cols-2">
+                    <label className="grid gap-2 text-sm font-black uppercase text-white/64">
+                      Project type
+                      <select
+                        name="project_type"
+                        required
+                        defaultValue=""
+                        className="min-h-12 rounded-md border border-white/20 bg-black/55 px-4 py-3 text-base font-bold normal-case text-white outline-none transition-colors focus:border-[#00e6ff]"
+                      >
+                        <option value="" disabled>Pick one</option>
+                        <option>Website</option>
+                        <option>Mobile app or MVP</option>
+                        <option>UI redesign</option>
+                        <option>Bug fix or launch cleanup</option>
+                        <option>Not sure yet</option>
+                      </select>
+                    </label>
+
+                    <label className="grid gap-2 text-sm font-black uppercase text-white/64">
+                      Timeline
+                      <input
+                        type="text"
+                        name="timeline"
+                        className="min-h-12 rounded-md border border-white/20 bg-black/55 px-4 py-3 text-base font-bold normal-case text-white outline-none transition-colors placeholder:text-white/28 focus:border-[#00e6ff]"
+                        placeholder="ASAP, this month, flexible..."
+                      />
+                    </label>
+                  </div>
+
+                  <label className="grid gap-2 text-sm font-black uppercase text-white/64">
+                    Best times to meet
+                    <input
+                      type="text"
+                      name="meeting_times"
+                      className="min-h-12 rounded-md border border-white/20 bg-black/55 px-4 py-3 text-base font-bold normal-case text-white outline-none transition-colors placeholder:text-white/28 focus:border-[#00e6ff]"
+                      placeholder="Weekday afternoons, Friday morning, etc."
+                    />
+                  </label>
+
+                  <label className="grid gap-2 text-sm font-black uppercase text-white/64">
+                    What are we building?
+                    <textarea
+                      name="message"
+                      required
+                      rows="5"
+                      className="min-h-36 resize-y rounded-md border border-white/20 bg-black/55 px-4 py-3 text-base font-bold normal-case leading-7 text-white outline-none transition-colors placeholder:text-white/28 focus:border-[#00e6ff]"
+                      placeholder="A few sentences is perfect. What exists now, what needs to change, and what would make this project a win?"
+                    />
+                  </label>
+
+                  <button type="submit" className="slab-button px-6 py-3">
+                    Send request
+                    <svg aria-hidden="true" className="h-5 w-5" viewBox="0 0 24 24" fill="none">
+                      <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </button>
+                </form>
+
+                <a href="mailto:awladis@andytech.it.com" className="slab-button slab-button-dark justify-self-start px-6 py-3 sm:justify-self-end">
+                  awladis@andytech.it.com
+                  <svg aria-hidden="true" className="h-5 w-5" viewBox="0 0 24 24" fill="none">
+                    <path d="M4 5h16v14H4zM4 7l8 6 8-6" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer className="border-t border-white/20 px-4 py-10 sm:px-6 lg:px-8">
+        <div className="mx-auto flex max-w-7xl flex-col gap-6 text-sm font-bold text-white/58 md:flex-row md:items-center md:justify-between">
+          <p>Freelance websites, apps, and product interfaces by AndyTech.</p>
+          <p>&copy; 2026 AndyTech, Inc.</p>
         </div>
       </footer>
     </div>

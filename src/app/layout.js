@@ -1,8 +1,8 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "AndyTech",
-  description: "Creating innovative mobile applications that deliver exceptional user experiences and drive engagement.",
+  title: "AndyTech | Freelance Web & App Builds",
+  description: "Freelance websites, mobile MVPs, and product interfaces by Andy Wladis.",
 };
 
 export default function RootLayout({ children }) {
