@@ -8,30 +8,35 @@ const productProof = [
     kicker: "Dream decoder",
     icon: "/pillowbook.png",
     color: "#ff8f3a",
+    url: "https://apps.apple.com/us/app/pillowbook-dream-decoder/id6775021552",
   },
   {
     name: "Swiftie Swipe",
     kicker: "Daily Swiftie trivia game",
     icon: "/swiftie.png",
     color: "#ff3a7e",
+    url: "https://apps.apple.com/us/app/swiftie-swipe/id6479224086",
   },
   {
     name: "Dunk Rank",
     kicker: "Sports ranking based on pickup games",
     icon: "/dunkrank.png",
     color: "#d7ff4f",
+    url: "https://apps.apple.com/us/app/dunk-rank/id6448699695",
   },
   {
     name: "BondsAI",
     kicker: "Track and learn bonds",
     icon: "/bondsai.png",
     color: "#00e6ff",
+    url: "https://apps.apple.com/us/app/bonds-ai/id6767971558",
   },
   {
     name: "Token",
     kicker: "Learn money",
     icon: "/token.png",
     color: "#ffe600",
+    url: "https://apps.apple.com/us/app/token-learn-money/id6777829905",
   },
 ];
 
@@ -117,8 +122,11 @@ export default function Home() {
 
             <div className="mt-6 grid gap-4 md:grid-cols-5">
               {productProof.map((product, index) => (
-                <div
+                <a
                   key={product.name}
+                  href={product.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className={`neo-card no-shine app-card reveal-in stagger-${(index % 4) + 1} p-4`}
                   style={{ "--app-accent": product.color }}
                 >
@@ -131,7 +139,7 @@ export default function Home() {
                   />
                   <h3 className="mt-5 text-lg font-black text-white">{product.name}</h3>
                   <p className="mt-2 text-xs font-black uppercase text-white/48">{product.kicker}</p>
-                </div>
+                </a>
               ))}
             </div>
           </div>
