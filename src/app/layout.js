@@ -1,7 +1,7 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "AndyTech | Freelance Web & App Builds",
+  title: "AndyTech",
   description: "Freelance websites, mobile MVPs, and product interfaces by Andy Wladis.",
 };
 

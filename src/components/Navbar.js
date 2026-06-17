@@ -15,12 +15,9 @@ export default function Navbar() {
         <div className="flex min-h-16 items-center justify-between gap-4">
           <a
             href="#home"
-            className="group flex items-center gap-3 font-black text-white"
+            className="font-black text-white"
             onClick={() => setIsOpen(false)}
           >
-            <span className="grid h-10 w-10 place-items-center rounded-lg border border-white/40 bg-white text-sm text-black shadow-[5px_5px_0_#ff3a7e] transition-transform duration-200 group-hover:-translate-y-0.5">
-              AT
-            </span>
             <span className="text-xl">AndyTech</span>
           </a>
 

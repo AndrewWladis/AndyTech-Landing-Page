@@ -239,6 +239,48 @@ button {
   transform: translate(-4px, -5px) rotate(-1.2deg);
 }
 
+.app-card {
+  overflow: hidden;
+  transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease, background 220ms ease;
+}
+
+.app-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 5px;
+  border-radius: inherit;
+  background: var(--app-accent, #00e6ff);
+  opacity: 0.72;
+  pointer-events: none;
+  transform: scaleY(0.24);
+  transform-origin: bottom;
+  transition: transform 240ms ease, opacity 220ms ease;
+}
+
+.app-card img {
+  transition: transform 220ms ease, box-shadow 220ms ease;
+}
+
+.app-card:hover {
+  border-color: var(--app-accent, #00e6ff);
+  background:
+    linear-gradient(145deg, rgba(255, 250, 240, 0.14), rgba(255, 250, 240, 0.045)),
+    rgba(5, 5, 5, 0.82);
+  box-shadow: 9px 9px 0 var(--app-accent, #00e6ff);
+  transform: translate(-3px, -4px);
+}
+
+.app-card:hover::before {
+  opacity: 1;
+  transform: scaleY(1);
+}
+
+.app-card:hover img {
+  box-shadow: 7px 7px 0 rgba(0, 0, 0, 0.62);
+  transform: translateY(-2px) rotate(-2deg) scale(1.04);
+}
+
 .stripe-fill {
   background-image: repeating-linear-gradient(
     -45deg,
